@@ -1,1 +1,22 @@
-매일1커밋
+# 매일1커밋
+# heap 활용 프로그래머스-더맵게
+
+import heapq
+def solution(scoville, K):
+    
+    answer = 0
+    heapq.heapify(scoville)
+    while len(scoville)>1:
+        sco1 = heapq.heappop(scoville)
+        sco2 = heapq.heappop(scoville)
+        if sco1<K or sco2<K:
+            heapq.heappush(scoville, sco1+(sco2*2))
+            answer+=1
+        else:
+            return answer
+    if scoville[0]>K:
+        return answer
+    else: #아무리 해도 안되는 경우
+        return -1
+    
+    return answer
