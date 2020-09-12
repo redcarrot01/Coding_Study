@@ -1,0 +1,18 @@
+프로그래머스 - 정수삼각형 dp 이용해서 풀기
+
+def solution(triangle):
+    # 둘째 줄 부터 계산
+    for rows in range(1, len(triangle)):
+        # rows 길이만큼 for 문
+        for idx in range(rows+1):
+            # left 가장 왼쪽
+            if idx==0:
+                triangle[rows][idx] += triangle[rows-1][idx]
+            # right 가장 오른쪽
+            elif idx==rows:
+                triangle[rows][idx] += triangle[rows-1][-1]
+            # middle
+            else:
+                triangle[rows][idx]+= max(triangle[rows-1][idx-1], triangle[rows-1][idx])
+    # 마지막 줄 최댓값 구한다
+    return max(triangle[-1]
