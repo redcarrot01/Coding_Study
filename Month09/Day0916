@@ -1,0 +1,21 @@
+# 백준 - 14501 퇴사
+
+# 솔직히 점화식 스스로 못찾겠다.. 풀었던 건데 내머린 백지..
+
+n = int(input())
+t,p = [0]*n, [0]*n
+
+for i in range(n):
+    t[i], p[i] = map(int, input().split())
+    
+d=[0]*20
+
+for i in range(n):
+    #현재가 다음날 보다 보상이 높다면
+    if d[i]>d[i+1]:
+        d[i+1]=d[i]
+    # 현재 기준으로 t일 후에 받게 될 금액이 상담 수행해서 받게 될 금액 보다 적다면    
+    if d[i+t[i]] < d[i]+p[i]:
+        d[i + t[i]] = d[i] + p[i]
+        
+print(d[n])  
