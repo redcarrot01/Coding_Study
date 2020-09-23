@@ -1,0 +1,27 @@
+백준 13458 - 다시 풀어보기 고민 다시해보기
+
+n=int(input())
+arr = list(map(int, input().split())) 
+b, c =map(int, input().split())
+
+
+# def solution():
+answer=0
+    
+for i in range(n):
+
+    if(arr[i]-b)<=0:
+        answer += 1
+
+    if (arr[i]-b)>0:
+        answer += 1
+
+        if(arr[i]-b)>c:
+            answer += int((arr[i]-b)/c)+1
+
+        else:
+            answer += 1
+                
+#     return answer       
+        
+print(answer)    
