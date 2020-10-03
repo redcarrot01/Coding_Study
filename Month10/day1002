@@ -1,0 +1,54 @@
+백준 14502 연구소 - bfs
+
+import copy
+  
+n,m = map(int, input().split())
+nm = []
+for i in range(n):
+    l = list(map(int, input().split()))
+    nm.append(l)
+    
+dr = [-1, 0, 1, 0] # 위 아래 row 단위로 이동 
+dc = [0, 1, 0, -1] # 좌우 column 단위로 이동
+
+max_count = 0 #clean지역의 개수를 return 하는 변수
+
+# 벽 선택
+def select_wall(start, count):
+    global max_count
+    if count==3:
+        # deepcopy로 3개 벽이 선택된 배열 몽땅 복사
+        sel_nm = copy.deepcopy(nm)  
+        for r in range(n):
+            for c in range(m):
+                spread_virus(r, c, sel_nm)
+        # clean 지역 count
+        safe_count = sum(i.count(0) for i in sel_nm)
+        max_count = max(max_count, safe_count)
+        return True
+    
+    else :
+        for i in range(start, n*m):
+            r = i//m 
+            c = i% m
+            if nm[r][c] == 0:
+                nm[r][c] =1
+                select_wall(i, count+1)
+                nm[r][c] =0 
+
+def spread_virus(r, c, sel_nm):
+    if sel_nm[r][c] == 2:
+        
+    # 상하좌우 4방향 확인하고 범위 벗어나거나
+    # 벽 만날때까지 반복
+        for dir in range(4):
+            n_r = r + dr[dir] # 2인 위치에서 상하 확인
+            n_c = c + dc[dir] # 2인 위치에서 좌우 확인
+            # 범위 벗어나지 않는 경우
+            if n_r >=0 and n_c>=0 and n_r<n and n_c<m:
+                if sel_nm[n_r][n_c] == 0:
+                       sel_nm[n_r][n_c] = 2
+                       spread_virus(n_r, n_c, sel_nm) 
+                        
+select_wall(0,0)
+print(max_count)
