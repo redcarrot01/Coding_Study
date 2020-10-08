@@ -1,3 +1,4 @@
+## 프로그래머스 입국심사
 def solution(n, times):
     low =1
     high = max(times)*n
